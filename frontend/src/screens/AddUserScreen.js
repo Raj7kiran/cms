@@ -211,7 +211,11 @@ const AddUserScreen = () => {
 
 	useEffect(() => {
 		dispatch({ type: USER_CREATE_RESET })
-		dispatch(listPackages())
+
+		if(userInfo && userInfo.isAdmin){
+				dispatch(listPackages())
+			}
+
 		dispatch(getCountry())
 		setValidated(null)
 		if(success){
@@ -247,7 +251,7 @@ const AddUserScreen = () => {
 				firstName, lastName, email, 
 				// company: company || userInfo.company, role, 
 				packageName: pack || userInfo.package , isAdmin, isClientAdmin,
-				address, pincode, dob, phone
+				address, pincode, dob, phone, alternatePhone, gender, city, state: stateName, country 
 			}))
 	    }
 		setValidated(true);  
@@ -375,7 +379,7 @@ const AddUserScreen = () => {
 																  >
 														<option value=''>Select Package</option>
 														{packages.map(pack => (
-																<option value={pack.packageName} >{pack.packageName}</option>
+																<option key={pack._id} value={pack.packageName} >{pack.packageName}</option>
 															))   }
 													</Form.Control>
 												</FloatingLabel>

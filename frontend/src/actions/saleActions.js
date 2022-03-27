@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { SERVICE_LIST_FAIL, SERVICE_LIST_REQUEST, SERVICE_LIST_SUCCESS, SERVICE_LIST_RESET,
-         SERVICE_CREATE_REQUEST, SERVICE_CREATE_SUCCESS, SERVICE_CREATE_FAIL, SERVICE_CREATE_RESET,
-         SERVICE_DETAILS_FAIL, SERVICE_DETAILS_REQUEST, SERVICE_DETAILS_SUCCESS, SERVICE_DETAILS_RESET,
-         SERVICE_UPDATE_REQUEST, SERVICE_UPDATE_SUCCESS, SERVICE_UPDATE_FAIL, SERVICE_UPDATE_RESET,
-         SERVICE_DELETE_REQUEST,SERVICE_DELETE_SUCCESS, SERVICE_DELETE_FAIL,
-	} from '../constants/serviceConstants'
+import { SALE_LIST_FAIL, SALE_LIST_REQUEST, SALE_LIST_SUCCESS, SALE_LIST_RESET,
+         SALE_CREATE_REQUEST, SALE_CREATE_SUCCESS, SALE_CREATE_FAIL, SALE_CREATE_RESET,
+         SALE_DETAILS_FAIL, SALE_DETAILS_REQUEST, SALE_DETAILS_SUCCESS, SALE_DETAILS_RESET,
+         SALE_UPDATE_REQUEST, SALE_UPDATE_SUCCESS, SALE_UPDATE_FAIL, SALE_UPDATE_RESET,
+         SALE_DELETE_REQUEST,SALE_DELETE_SUCCESS, SALE_DELETE_FAIL,
+	} from '../constants/saleConstants'
 import { logout } from './userActions'
 
 
-export const listServices = () => async (dispatch, getState) => {
+export const listSale = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_LIST_REQUEST,
+      type: SALE_LIST_REQUEST,
     })
 
     const { userLogin: { userInfo }, } = getState()
@@ -22,10 +22,10 @@ export const listServices = () => async (dispatch, getState) => {
       },
     } 
 
-    const { data } = await axios.get(`/service`, config)    
+    const { data } = await axios.get(`/sale`, config)    
 
     dispatch({
-      type: SERVICE_LIST_SUCCESS,
+      type: SALE_LIST_SUCCESS,
       payload: data,
     })
     
@@ -38,17 +38,17 @@ export const listServices = () => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_LIST_FAIL,
+      type: SALE_LIST_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const createService = (service) => async(dispatch, getState) => {
+export const createSale = (sale) => async(dispatch, getState) => {
   
   try{
-    dispatch({ type: SERVICE_CREATE_REQUEST })
+    dispatch({ type: SALE_CREATE_REQUEST })
 
     const { userLogin:{ userInfo } } = getState()
 
@@ -59,10 +59,10 @@ export const createService = (service) => async(dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.post('/service', service, config)
+    const { data } = await axios.post('/sale', sale, config)
 
     dispatch({
-      type: SERVICE_CREATE_SUCCESS,
+      type: SALE_CREATE_SUCCESS,
       payload: data
     })
 
@@ -73,17 +73,17 @@ export const createService = (service) => async(dispatch, getState) => {
               : error.message
           
           dispatch({
-            type: SERVICE_CREATE_FAIL,
+            type: SALE_CREATE_FAIL,
             payload: message,
           })
   }
 }
 
 
-export const getServiceDetails = (id) => async (dispatch, getState) => {
+export const getSaleDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_DETAILS_REQUEST,
+      type: SALE_DETAILS_REQUEST,
     })
 
     const { userLogin: { userInfo }} = getState()
@@ -95,10 +95,10 @@ export const getServiceDetails = (id) => async (dispatch, getState) => {
 		     	 },
    			 }	
 
-    const { data } = await axios.get(`/service/${id}`, config)	  
+    const { data } = await axios.get(`/sale/${id}`, config)	  
 
     dispatch({
-      type: SERVICE_DETAILS_SUCCESS,
+      type: SALE_DETAILS_SUCCESS,
       payload: data,
     })
  		
@@ -111,17 +111,17 @@ export const getServiceDetails = (id) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_DETAILS_FAIL,
+      type: SALE_DETAILS_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const updateService = (service) => async (dispatch, getState) => {
+export const updateSale = (sale) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_UPDATE_REQUEST,
+      type: SALE_UPDATE_REQUEST,
     })
 
     const { userLogin: { userInfo }, } = getState()
@@ -133,10 +133,10 @@ export const updateService = (service) => async (dispatch, getState) => {
       },
     } 
 
-    const { data } = await axios.put(`/service/${service.id}`, service,config)   
+    const { data } = await axios.put(`/sale/${sale.id}`, sale,config)   
 
-    dispatch({ type: SERVICE_UPDATE_SUCCESS, })
-    dispatch({ type: SERVICE_DETAILS_SUCCESS, payload: data })
+    dispatch({ type: SALE_UPDATE_SUCCESS, })
+    dispatch({ type: SALE_DETAILS_SUCCESS, payload: data })
     
   } catch (error) {
     const message =
@@ -147,17 +147,17 @@ export const updateService = (service) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_UPDATE_FAIL,
+      type: SALE_UPDATE_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const deleteService = (id) => async (dispatch, getState) => {
+export const deleteSale = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_DELETE_REQUEST
+      type: SALE_DELETE_REQUEST
     })
 
     const { userLogin: {userInfo}, } = getState()
@@ -166,10 +166,10 @@ export const deleteService = (id) => async (dispatch, getState) => {
       headers : { Authorization: `Bearer ${userInfo.token}` }, 
     }
 
-    await axios.delete(`/service/${id}`, config)
+    await axios.delete(`/sale/${id}`, config)
 
     dispatch({
-      type: SERVICE_DELETE_SUCCESS,
+      type: SALE_DELETE_SUCCESS,
     })
 
 
@@ -182,7 +182,7 @@ export const deleteService = (id) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_DELETE_FAIL,
+      type: SALE_DELETE_FAIL,
       payload: message,
     })
   }

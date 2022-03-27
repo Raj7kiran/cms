@@ -4,7 +4,9 @@ import { logout } from '../actions/userActions'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 import * as FiIcons from 'react-icons/fi'
+import * as FcIcons from 'react-icons/fc'
 import * as GrIcons from 'react-icons/gr'
+import * as GiIcons from 'react-icons/gi'
 import {Link} from 'react-router-dom'
 // import { SideBarData } from './SideBarData'
 import './NavBar.css'
@@ -100,6 +102,18 @@ const NavBar = () => {
 														<span>Services</span>
 													</Link>
 												</li>
+												<li className='nav-text'>
+													<Link to='/frequency'>
+														<GiIcons.GiLightningFrequency />
+														<span>Frequencies</span>
+													</Link>
+												</li>
+												<li className='nav-text'>
+													<Link to='/sale'>
+														<FcIcons.FcSalesPerformance />
+														<span>Sale</span>
+													</Link>
+												</li>
 												<li className='nav-text' onClick={logoutHandler}>
 													<Link to='#'>
 														<GrIcons.GrLogout />
@@ -107,7 +121,28 @@ const NavBar = () => {
 													</Link>
 												</li>
 											</>
-										) : ('')
+										) : (
+											<>
+												<li className='nav-text'>
+													<Link to='/profile'>
+														<AiIcons.AiFillProfile />
+														<span>{userInfo.name}</span>
+													</Link>
+												</li>
+												<li className='nav-text'>
+													<Link to='/'>
+														<AiIcons.AiFillHome />
+														<span>Home</span>
+													</Link>
+												</li>
+												<li className='nav-text' onClick={logoutHandler}>
+													<Link to='#'>
+														<GrIcons.GrLogout />
+														<span>Logout</span>
+													</Link>
+												</li>
+											</>
+										)
 								}
 								{/*{ 	
 

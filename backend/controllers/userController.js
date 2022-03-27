@@ -165,6 +165,9 @@ const getUserProfile = asyncHandler(async (req,res) => {
 				isAdmin: user.isAdmin,
 				isClientAdmin: user.isClientAdmin,
 				package: user.package,
+				gender: user.gender,
+				phone: user.phone,
+				alternatePhone: user.alternatePhone,
 				dob: user.dob,
 				city: user.city,
 				state: user.city,
@@ -220,6 +223,7 @@ const updateUser = asyncHandler(async (req,res) => {
 	const user = await User.findById(req.params.id);
 	
 	if(user){
+		user.name = `${req.body.firstName} ${req.body.lastName}` || user.firstName
 		user.firstName = req.body.firstName || user.firstName
 		user.lastName = req.body.lastName || user.lastName
 		user.email =  req.body.email || user.email
@@ -241,10 +245,15 @@ const updateUser = asyncHandler(async (req,res) => {
 		user.isAdmin = req.body.isAdmin ?? user.isAdmin
 		user.isClientAdmin = req.body.isClientAdmin ?? user.isClientAdmin
 		
+		if(req.body.password){
+			user.password = req.body.password
+		}
+		
 		const updatedUser = await user.save()
 
 		res.json({
 				_id: updatedUser._id,
+				name: updatedUser.name,
 				firstName: updatedUser.firstName,
 				lastName: updatedUser.lastName,				
 				email: updatedUser.email,
@@ -281,7 +290,7 @@ const updateUserProfile = asyncHandler(async (req,res) => {
 	
 
 	if(user){
-		user.firstName = req.body.firstName || user.firstName
+		user.firstName = `${req.body.firstName} ${req.body.lastName}` || user.firstName
 		user.lastName = req.body.lastName || user.lastName
 		user.email =  req.body.email || user.email
 		user.company = user.company
@@ -310,6 +319,7 @@ const updateUserProfile = asyncHandler(async (req,res) => {
 
 		res.json({
 				_id: updatedUser._id,
+				name: updatedUser.name,
 				firstName: updatedUser.firstName,
 				lastName: updatedUser.lastName,				
 				email: updatedUser.email,

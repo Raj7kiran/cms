@@ -9,6 +9,8 @@ import userRoutes from './routes/userRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
 import dpRoutes from './routes/dpRoutes.js'
 import serviceRoutes from './routes/serviceRoutes.js'
+import frequencyRoutes from './routes/frequencyRoutes.js'
+import saleRoutes from './routes/saleRoutes.js'
 
 
 const app = express();
@@ -28,6 +30,8 @@ app.use('/users', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/drop', dpRoutes)
 app.use('/service', serviceRoutes)
+app.use('/frequency', frequencyRoutes)
+app.use('/sale', saleRoutes)
 
 
 const __dirname = path.resolve()

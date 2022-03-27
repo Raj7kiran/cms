@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { SERVICE_LIST_FAIL, SERVICE_LIST_REQUEST, SERVICE_LIST_SUCCESS, SERVICE_LIST_RESET,
-         SERVICE_CREATE_REQUEST, SERVICE_CREATE_SUCCESS, SERVICE_CREATE_FAIL, SERVICE_CREATE_RESET,
-         SERVICE_DETAILS_FAIL, SERVICE_DETAILS_REQUEST, SERVICE_DETAILS_SUCCESS, SERVICE_DETAILS_RESET,
-         SERVICE_UPDATE_REQUEST, SERVICE_UPDATE_SUCCESS, SERVICE_UPDATE_FAIL, SERVICE_UPDATE_RESET,
-         SERVICE_DELETE_REQUEST,SERVICE_DELETE_SUCCESS, SERVICE_DELETE_FAIL,
-	} from '../constants/serviceConstants'
+import { FREQUENCY_LIST_FAIL, FREQUENCY_LIST_REQUEST, FREQUENCY_LIST_SUCCESS, FREQUENCY_LIST_RESET,
+         FREQUENCY_CREATE_REQUEST, FREQUENCY_CREATE_SUCCESS, FREQUENCY_CREATE_FAIL, FREQUENCY_CREATE_RESET,
+         FREQUENCY_DETAILS_FAIL, FREQUENCY_DETAILS_REQUEST, FREQUENCY_DETAILS_SUCCESS, FREQUENCY_DETAILS_RESET,
+         FREQUENCY_UPDATE_REQUEST, FREQUENCY_UPDATE_SUCCESS, FREQUENCY_UPDATE_FAIL, FREQUENCY_UPDATE_RESET,
+         FREQUENCY_DELETE_REQUEST,FREQUENCY_DELETE_SUCCESS, FREQUENCY_DELETE_FAIL,
+	} from '../constants/frequencyConstants'
 import { logout } from './userActions'
 
 
-export const listServices = () => async (dispatch, getState) => {
+export const listFrequency = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_LIST_REQUEST,
+      type: FREQUENCY_LIST_REQUEST,
     })
 
     const { userLogin: { userInfo }, } = getState()
@@ -22,10 +22,10 @@ export const listServices = () => async (dispatch, getState) => {
       },
     } 
 
-    const { data } = await axios.get(`/service`, config)    
+    const { data } = await axios.get(`/frequency`, config)    
 
     dispatch({
-      type: SERVICE_LIST_SUCCESS,
+      type: FREQUENCY_LIST_SUCCESS,
       payload: data,
     })
     
@@ -38,17 +38,17 @@ export const listServices = () => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_LIST_FAIL,
+      type: FREQUENCY_LIST_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const createService = (service) => async(dispatch, getState) => {
+export const createFrequency = (frequency) => async(dispatch, getState) => {
   
   try{
-    dispatch({ type: SERVICE_CREATE_REQUEST })
+    dispatch({ type: FREQUENCY_CREATE_REQUEST })
 
     const { userLogin:{ userInfo } } = getState()
 
@@ -59,10 +59,10 @@ export const createService = (service) => async(dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.post('/service', service, config)
+    const { data } = await axios.post('/frequency', frequency, config)
 
     dispatch({
-      type: SERVICE_CREATE_SUCCESS,
+      type: FREQUENCY_CREATE_SUCCESS,
       payload: data
     })
 
@@ -73,17 +73,17 @@ export const createService = (service) => async(dispatch, getState) => {
               : error.message
           
           dispatch({
-            type: SERVICE_CREATE_FAIL,
+            type: FREQUENCY_CREATE_FAIL,
             payload: message,
           })
   }
 }
 
 
-export const getServiceDetails = (id) => async (dispatch, getState) => {
+export const getFrequencyDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_DETAILS_REQUEST,
+      type: FREQUENCY_DETAILS_REQUEST,
     })
 
     const { userLogin: { userInfo }} = getState()
@@ -95,10 +95,10 @@ export const getServiceDetails = (id) => async (dispatch, getState) => {
 		     	 },
    			 }	
 
-    const { data } = await axios.get(`/service/${id}`, config)	  
+    const { data } = await axios.get(`/frequency/${id}`, config)	  
 
     dispatch({
-      type: SERVICE_DETAILS_SUCCESS,
+      type: FREQUENCY_DETAILS_SUCCESS,
       payload: data,
     })
  		
@@ -111,17 +111,17 @@ export const getServiceDetails = (id) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_DETAILS_FAIL,
+      type: FREQUENCY_DETAILS_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const updateService = (service) => async (dispatch, getState) => {
+export const updateFrequency = (frequency) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_UPDATE_REQUEST,
+      type: FREQUENCY_UPDATE_REQUEST,
     })
 
     const { userLogin: { userInfo }, } = getState()
@@ -133,10 +133,10 @@ export const updateService = (service) => async (dispatch, getState) => {
       },
     } 
 
-    const { data } = await axios.put(`/service/${service.id}`, service,config)   
+    const { data } = await axios.put(`/frequency/${frequency.id}`, frequency,config)   
 
-    dispatch({ type: SERVICE_UPDATE_SUCCESS, })
-    dispatch({ type: SERVICE_DETAILS_SUCCESS, payload: data })
+    dispatch({ type: FREQUENCY_UPDATE_SUCCESS, })
+    dispatch({ type: FREQUENCY_DETAILS_SUCCESS, payload: data })
     
   } catch (error) {
     const message =
@@ -147,17 +147,17 @@ export const updateService = (service) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_UPDATE_FAIL,
+      type: FREQUENCY_UPDATE_FAIL,
       payload: message,
     })
   }
 }
 
 
-export const deleteService = (id) => async (dispatch, getState) => {
+export const deleteFrequency = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SERVICE_DELETE_REQUEST
+      type: FREQUENCY_DELETE_REQUEST
     })
 
     const { userLogin: {userInfo}, } = getState()
@@ -166,10 +166,10 @@ export const deleteService = (id) => async (dispatch, getState) => {
       headers : { Authorization: `Bearer ${userInfo.token}` }, 
     }
 
-    await axios.delete(`/service/${id}`, config)
+    await axios.delete(`/frequency/${id}`, config)
 
     dispatch({
-      type: SERVICE_DELETE_SUCCESS,
+      type: FREQUENCY_DELETE_SUCCESS,
     })
 
 
@@ -182,7 +182,7 @@ export const deleteService = (id) => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: SERVICE_DELETE_FAIL,
+      type: FREQUENCY_DELETE_FAIL,
       payload: message,
     })
   }
